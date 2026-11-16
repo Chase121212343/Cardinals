@@ -1,46 +1,74 @@
-# Cardinals Panel
+<div align="center">
 
-A game server management panel forked from [Pterodactyl](https://pterodactyl.io), rebranded as Cardinals with a cardinal red & black theme.
+# 🐦 Cardinals Panel
 
-## One-line install
+**A custom game server management panel built for performance.**  
+Fork of [Pterodactyl](https://pterodactyl.io) — rebranded, rethemed, and ready to deploy.
+
+![Cardinals Theme](https://img.shields.io/badge/theme-Cardinal%20Red%20%26%20Black-CC0000?style=for-the-badge)
+![Docker](https://img.shields.io/badge/docker-ready-2496ED?style=for-the-badge&logo=docker)
+![License](https://img.shields.io/badge/license-MIT-green?style=for-the-badge)
+![Platform](https://img.shields.io/badge/platform-Linux%20%7C%20WSL2-lightgrey?style=for-the-badge)
+
+</div>
+
+---
+
+## ✨ Features
+
+- 🔴 **Custom cardinal red & black theme** — dark UI with red accents throughout
+- 🐦 **Cardinals branding** — custom cardinal bird logo, no Pterodactyl references
+- 🐳 **One-line Docker install** — up and running in minutes
+- 🐧 **Linux & WSL2 support** — works on any modern Linux or Windows WSL2
+- 🎮 **Full game server support** — Minecraft, CS:GO, Rust, TF2, ARK, and more
+- ⚡ **Auto-setup** — installs Docker, pulls images, configures everything automatically
+
+---
+
+## 🚀 One-Line Install
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/Chase121212343/Cardinals/main/install.sh | bash
 ```
 
-Or if you already have this repo cloned:
+> Works on **Ubuntu, Debian, and WSL2**. Installs Docker automatically if not present.
 
+---
+
+## 📋 Requirements
+
+| Requirement | Details |
+|-------------|---------|
+| OS | Ubuntu 20.04+ / Debian 11+ / WSL2 |
+| RAM | 1GB minimum, 2GB recommended |
+| Disk | 10GB minimum |
+| Docker | Installed automatically if missing |
+
+---
+
+## ⚙️ After Install
+
+**1. Create your admin account:**
 ```bash
-bash install.sh
+docker compose -f ~/eagle/docker-compose.yml exec panel php artisan p:user:make \
+  --email=you@example.com \
+  --username=admin \
+  --name-first=Admin \
+  --name-last=User \
+  --password=YourPass1 \
+  --admin=1
 ```
 
-## Prerequisites
+**2. Open the panel:**
+```
+http://localhost
+```
 
-- **Linux** or **WSL2** on Windows 10/11
-- **Docker** (the install script will install it if missing)
-- For WSL2: **Docker Desktop** with WSL2 integration enabled
+---
 
-## What it installs
+## 🖥️ Wings (Game Server Daemon)
 
-| Component | Details |
-|-----------|---------|
-| Cardinals Panel | PHP/Laravel + React UI |
-| Database | MariaDB 11 |
-| Cache | Redis |
-| Wings | Go daemon (separate, manages game server containers) |
-
-## After install
-
-1. Wait ~30 seconds for the panel to initialize
-2. Create your admin account:
-   ```bash
-   docker compose exec panel php artisan p:user:make --email=you@example.com --username=admin --name-first=Admin --name-last=User --password=YourPass1 --admin=1
-   ```
-3. Open **http://localhost** in your browser
-
-## Wings setup (required to create servers)
-
-After the panel is running, install Wings on the same machine:
+Wings is required to actually run game servers. Install it on the same machine:
 
 ```bash
 curl -L https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64 -o /tmp/wings
@@ -48,36 +76,60 @@ chmod +x /tmp/wings && sudo mv /tmp/wings /usr/local/bin/wings
 sudo mkdir -p /etc/pterodactyl /var/lib/pterodactyl/volumes
 ```
 
-Then grab your node config from **Admin → Nodes → your node → Configuration tab** and paste it into `/etc/pterodactyl/config.yml`, then run:
+Then grab your node config from **Admin → Nodes → your node → Configuration tab**, save it to `/etc/pterodactyl/config.yml`, and run:
 
 ```bash
 sudo wings
 ```
 
-## Useful commands
+---
+
+## 🛠️ Useful Commands
 
 ```bash
-# Start
-docker compose up -d
+# Start Cardinals
+docker compose -f ~/eagle/docker-compose.yml up -d
 
-# Stop
-docker compose down
+# Stop Cardinals
+docker compose -f ~/eagle/docker-compose.yml down
 
 # View logs
-docker compose logs -f panel
+docker compose -f ~/eagle/docker-compose.yml logs -f panel
 
-# Restart panel
-docker compose restart panel
+# Restart
+docker compose -f ~/eagle/docker-compose.yml restart panel
 ```
 
-## Updating
+---
+
+## 🔄 Updating
 
 ```bash
+cd ~/eagle
+git pull
 git -C panel pull
 bash rebrand.sh ./panel ./wings
-docker compose restart panel
+docker compose -f ~/eagle/docker-compose.yml restart panel
 ```
 
-## License
+---
 
-Cardinals Panel is a fork of Pterodactyl, which is licensed under the [MIT License](https://github.com/pterodactyl/panel/blob/develop/LICENSE.md).
+## 📦 What Gets Installed
+
+| Service | Image |
+|---------|-------|
+| Cardinals Panel | `ghcr.io/pterodactyl/panel:latest` |
+| Database | `mariadb:11` |
+| Cache | `redis:alpine` |
+
+---
+
+## 📄 License
+
+Cardinals Panel is a fork of [Pterodactyl Panel](https://github.com/pterodactyl/panel), licensed under the [MIT License](LICENSE.md).
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ — Cardinals Panel</sub>
+</div>
