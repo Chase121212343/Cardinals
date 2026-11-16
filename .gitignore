@@ -1,0 +1,8 @@
+# Keep panel/wings source but skip large generated dirs
+panel/node_modules/
+panel/vendor/
+panel/public/build/
+panel/storage/logs/
+panel/.env
+wings/bin/
+*.log
