@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{{ config('app.name', 'Pterodactyl') }} - @yield('title')</title>
+        <title>{{ config('app.name', 'Cardinals') }} - @yield('title')</title>
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <meta name="_token" content="{{ csrf_token() }}">
 
@@ -28,6 +28,149 @@
             {!! Theme::css('css/pterodactyl.css?t={cache-version}') !!}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+            <style>
+                /* ── Cardinals Admin Theme — Red & Black ── */
+                :root {
+                    --cr: #CC0000;
+                    --cr-dark: #8B0000;
+                    --cb: #0d0d0d;
+                    --cs: #1a1a1a;
+                    --cm: #222;
+                    --ct: #f0f0f0;
+                }
+
+                /* Overall background */
+                body, .wrapper { background-color: #111 !important; }
+
+                /* ── Top navbar ── */
+                .main-header .navbar,
+                .main-header .logo {
+                    background-color: var(--cb) !important;
+                    border-bottom: 3px solid var(--cr) !important;
+                    color: var(--ct) !important;
+                }
+                .main-header .logo {
+                    font-weight: 800 !important;
+                    font-size: 18px !important;
+                    letter-spacing: 2px !important;
+                    color: var(--cr) !important;
+                    border-right: 1px solid #333 !important;
+                }
+                .main-header .logo:hover { background-color: #111 !important; }
+                .main-header .navbar .nav > li > a { color: #bbb !important; }
+                .main-header .navbar .nav > li > a:hover { color: white !important; background-color: #222 !important; }
+                .main-header .navbar .sidebar-toggle { color: #aaa !important; }
+                .main-header .navbar .sidebar-toggle:hover { background-color: var(--cr) !important; color: white !important; }
+
+                /* ── Sidebar ── */
+                .main-sidebar,
+                .left-side { background-color: var(--cb) !important; }
+                .sidebar-menu > li > a { color: #bbb !important; }
+                .sidebar-menu > li:hover > a,
+                .sidebar-menu > li.active > a {
+                    color: white !important;
+                    background-color: var(--cr) !important;
+                    border-left: 4px solid #ff4444 !important;
+                }
+                .sidebar-menu > li.header {
+                    color: #555 !important;
+                    background-color: transparent !important;
+                    font-size: 11px !important;
+                    letter-spacing: 1px !important;
+                }
+
+                /* ── Content area ── */
+                .content-wrapper { background-color: #111 !important; }
+                .content-header { border-bottom: 1px solid #2a2a2a !important; }
+                .content-header h1 { color: var(--ct) !important; }
+                .content-header h1 small { color: #888 !important; }
+
+                /* ── Boxes / cards ── */
+                .box {
+                    background-color: var(--cs) !important;
+                    border-top: 3px solid var(--cr) !important;
+                    border: 1px solid #2a2a2a;
+                }
+                .box-header { background-color: var(--cm) !important; border-bottom: 1px solid #333 !important; }
+                .box-header .box-title { color: var(--ct) !important; }
+                .box-body { color: #ccc !important; }
+                .box-footer { background-color: var(--cm) !important; border-top: 1px solid #333 !important; }
+
+                /* ── Tables ── */
+                .table { color: #ccc !important; }
+                .table > thead > tr > th {
+                    background-color: #0d0d0d !important;
+                    color: var(--cr) !important;
+                    border-bottom: 2px solid var(--cr) !important;
+                    text-transform: uppercase;
+                    font-size: 11px;
+                    letter-spacing: 1px;
+                }
+                .table > tbody > tr > td { border-top: 1px solid #2a2a2a !important; }
+                .table-hover > tbody > tr:hover { background-color: #1f0505 !important; }
+                .table-striped > tbody > tr:nth-of-type(odd) { background-color: #161616 !important; }
+
+                /* ── Forms ── */
+                .form-control {
+                    background-color: #111 !important;
+                    border: 1px solid #333 !important;
+                    color: #ddd !important;
+                }
+                .form-control:focus {
+                    border-color: var(--cr) !important;
+                    box-shadow: 0 0 0 2px rgba(204,0,0,0.2) !important;
+                }
+                label { color: #aaa !important; }
+                .form-group .help-block { color: #666 !important; }
+
+                /* ── Buttons ── */
+                .btn-primary, .btn-success {
+                    background-color: var(--cr) !important;
+                    border-color: var(--cr-dark) !important;
+                }
+                .btn-primary:hover, .btn-success:hover {
+                    background-color: var(--cr-dark) !important;
+                }
+                .btn-default {
+                    background-color: #2a2a2a !important;
+                    border-color: #444 !important;
+                    color: #ccc !important;
+                }
+
+                /* ── Alerts ── */
+                .alert-success { background-color: #0a1f0a !important; border-color: #1a4a1a !important; color: #6fcf6f !important; }
+                .alert-danger  { background-color: #1f0505 !important; border-color: var(--cr-dark) !important; color: #ff8080 !important; }
+                .alert-info    { background-color: #05101f !important; border-color: #1a3a5a !important; color: #80aaff !important; }
+                .alert-warning { background-color: #1f1500 !important; border-color: #4a3800 !important; color: #ffd080 !important; }
+
+                /* ── Pagination ── */
+                .pagination > li > a { background-color: #1a1a1a !important; border-color: #333 !important; color: #ccc !important; }
+                .pagination > .active > a { background-color: var(--cr) !important; border-color: var(--cr-dark) !important; }
+
+                /* ── Footer ── */
+                .main-footer {
+                    background-color: var(--cb) !important;
+                    border-top: 2px solid var(--cr) !important;
+                    color: #555 !important;
+                }
+
+                /* ── Scrollbar ── */
+                ::-webkit-scrollbar { width: 6px; }
+                ::-webkit-scrollbar-track { background: #0d0d0d; }
+                ::-webkit-scrollbar-thumb { background: var(--cr); border-radius: 4px; }
+
+                /* ── Select2 ── */
+                .select2-container--default .select2-selection--single,
+                .select2-container--default .select2-selection--multiple {
+                    background-color: #111 !important;
+                    border-color: #333 !important;
+                    color: #ddd !important;
+                }
+                .select2-dropdown { background-color: #1a1a1a !important; border-color: #333 !important; }
+                .select2-container--default .select2-results__option--highlighted {
+                    background-color: var(--cr) !important;
+                }
+            </style>
 
             <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -39,7 +182,7 @@
         <div class="wrapper">
             <header class="main-header">
                 <a href="{{ route('index') }}" class="logo">
-                    <span>{{ config('app.name', 'Pterodactyl') }}</span>
+                    <span>{{ config('app.name', 'Cardinals') }}</span>
                 </a>
                 <nav class="navbar navbar-static-top">
                     <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -159,7 +302,7 @@
                     <strong><i class="fa fa-fw {{ $appIsGit ? 'fa-git-square' : 'fa-code-fork' }}"></i></strong> {{ $appVersion }}<br />
                     <strong><i class="fa fa-fw fa-clock-o"></i></strong> {{ round(microtime(true) - LARAVEL_START, 3) }}s
                 </div>
-                Copyright &copy; 2015 - {{ date('Y') }} <a href="https://eagle.panel/">Pterodactyl Software</a>.
+                Copyright &copy; 2025 - {{ date('Y') }} Cardinals Panel.
             </footer>
         </div>
         @section('footer-scripts')
